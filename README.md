@@ -8,4 +8,4 @@ You will need Node.js installed on your machine to use this. Once you clone the 
 
 ## Screen Recording Link
 Watch this video to show the functionality of the application
-https://drive.google.com/file/d/1RwbJTZSCHimeXLs4TQUOIdy5I37bNkoV/view?usp=sharing
+https://drive.google.com/file/d/1EDr1vF7CoaVg2txIXJ4skyLrf0xDmei-/view?usp=sharing
