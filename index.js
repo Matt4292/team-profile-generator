@@ -1,16 +1,18 @@
-
+// required packages
 const inquirer = require("inquirer");
 const fs = require("fs");
 
-
+// links to classes
 const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 
+// array that employee objects will go into
 const employees = []
-//TODO make inquirer to get info for cards
+
 
 inquirer.prompt([
+    // Manager questions
     {
       name: "name",
       type: "input",
@@ -39,7 +41,11 @@ inquirer.prompt([
     },
 
   ]).then( response => {    
+
+    // Makes manager object in the employees array with the data from inputs
     employees.push(new Manager(response.name, response.id, response.email, response.office, "Manager")) 
+    
+    // Starts new round of questions for new employee or generates html if user is done inputting employees
     if( response.nextStep === "Add engineer") {
       engineerQuestions()
     } else if (response.nextStep === "Add intern"){
@@ -49,6 +55,8 @@ inquirer.prompt([
     }
   })
 
+
+// Questions for adding new engineer
 function engineerQuestions() {
   inquirer.prompt([
     {
@@ -78,7 +86,10 @@ function engineerQuestions() {
       choices: ["Add engineer", "Add intern", "I'm done adding employees"]
     },
   ]).then( response => {    
+    // Adds new engineer to employees array
     employees.push(new Engineer(response.name, response.id, response.email, response.github, "Engineer"))
+
+    // Starts new round of questions for new employee or generates html if user is done inputting employees
     if( response.nextStep === "Add engineer") {
       engineerQuestions()
     } else if (response.nextStep === "Add intern"){
@@ -88,6 +99,8 @@ function engineerQuestions() {
     }
   })
 }
+
+// Questions for adding intern
 function internQuestions() {
   inquirer.prompt([
     {
@@ -117,7 +130,9 @@ function internQuestions() {
       choices: ["Add engineer", "Add intern", "I'm done adding employees"]
     },
   ]).then( response => {
+    // Adds new intern to employees array
     employees.push(new Intern(response.name, response.id, response.email, response.school, "Intern"))
+    // Starts new round of questions for new employee or generates html if user is done inputting employees
     if( response.nextStep === "Add engineer") {
       engineerQuestions()
     } else if (response.nextStep === "Add intern"){
@@ -128,10 +143,14 @@ function internQuestions() {
   })
 }
 
-//TODO use fs to make an html file 
+// Function to generate HTML file
 function makeFile(){
+  // array to hold html cards made from the employees array
   const cardArr = []
+
+  // Generates card for each item in employees array
   employees.forEach(element => {
+    // Lets each role have a special piece of data
     if (element.role==="Manager"){
       specialty = "Office Number: "+`${element.office}`
     } else if (element.role==="Engineer"){
@@ -139,6 +158,7 @@ function makeFile(){
     } else if (element.role==="Intern"){
       specialty = "School: "+`${element.school}`
     }
+    // html template for cards
     newCard = `<div class="card bg-dark" style="width: 18rem;">
         <div class="card-body">
           <h5 class="card-title">${element.name}</h5>
@@ -151,9 +171,11 @@ function makeFile(){
         </ul>
       </div>`;
 
-    
+    // pushes each card to card array
     cardArr.push(newCard)
   });
+
+  // Actually generates the main html file
   fs.writeFile("./dist/team-profile.html", `<!DOCTYPE html>
   <html lang="en">
   <head>
@@ -176,6 +198,7 @@ function makeFile(){
   </div>
   </body>
   </html>`, (err) =>{
+    // logs error if thrown or tells user their file was created
     if (err){
       console.log(err)
     } else console.log("Your HTML file has been created.")
