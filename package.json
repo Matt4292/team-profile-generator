@@ -1,6 +1,28 @@
 {
   "dependencies": {
-    "inquirer": "^8.2.2",
+    "inquirer": "^8.2.2"
+  },
+  "name": "team-profile-generator",
+  "description": "",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {
     "jest": "^27.5.1"
-  }
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Matt4292/team-profile-generator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Matt4292/team-profile-generator/issues"
+  },
+  "homepage": "https://github.com/Matt4292/team-profile-generator#readme"
 }

@@ -40,7 +40,6 @@ inquirer.prompt([
 
   ]).then( response => {    
     employees.push(new Manager(response.name, response.id, response.email, response.office, "Manager")) 
-    console.log(employees)
     if( response.nextStep === "Add engineer") {
       engineerQuestions()
     } else if (response.nextStep === "Add intern"){
@@ -80,7 +79,6 @@ function engineerQuestions() {
     },
   ]).then( response => {    
     employees.push(new Engineer(response.name, response.id, response.email, response.github, "Engineer"))
-    console.log(employees)
     if( response.nextStep === "Add engineer") {
       engineerQuestions()
     } else if (response.nextStep === "Add intern"){
@@ -120,7 +118,6 @@ function internQuestions() {
     },
   ]).then( response => {
     employees.push(new Intern(response.name, response.id, response.email, response.school, "Intern"))
-    console.log(employees)
     if( response.nextStep === "Add engineer") {
       engineerQuestions()
     } else if (response.nextStep === "Add intern"){
@@ -131,17 +128,6 @@ function internQuestions() {
   })
 }
 
-
-
-
-
-
-
-
-
-
-
-
 //TODO use fs to make an html file 
 function makeFile(){
   const cardArr = []
@@ -149,7 +135,7 @@ function makeFile(){
     if (element.role==="Manager"){
       specialty = "Office Number: "+`${element.office}`
     } else if (element.role==="Engineer"){
-      specialty = "GitHub: "+`${element.github}`
+      specialty = "GitHub: "+`<a href= "https://github.com/${element.github}" target="blank">${element.github}</a>`
     } else if (element.role==="Intern"){
       specialty = "School: "+`${element.school}`
     }
@@ -160,7 +146,7 @@ function makeFile(){
         </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">ID: ${element.id}</li>
-          <li class="list-group-item">Email: ${element.email}</li>
+          <li class="list-group-item">Email: <a href = "mailto: ${element.email}" target="blank">${element.email}</a></li>
           <li class="list-group-item">${specialty}</li>
         </ul>
       </div>`;
@@ -192,14 +178,6 @@ function makeFile(){
   </html>`, (err) =>{
     if (err){
       console.log(err)
-    }
+    } else console.log("Your HTML file has been created.")
   })
 }
-
-//TODO make inquirer responses into cards in the html file
-
-
-//TODO 
-//TODO 
-//TODO 
-//TODO 
